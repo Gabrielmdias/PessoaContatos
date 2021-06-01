@@ -1,7 +1,7 @@
 package com.elotech.dto;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.elotech.cadastro.pessoa.Pessoa;
@@ -12,14 +12,14 @@ public class PessoaDTO {
 	private String nome;
 	private String cpf;
 	private String dataNascimento;
-	private Set<ContatoDTO> contatos;
+	private List<ContatoDTO> contatos;
 
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 	public PessoaDTO() {
 	}
 
-	public PessoaDTO(Long id, String nome, String cpf, String dataNascimento, Set<ContatoDTO> contatos) {
+	public PessoaDTO(Long id, String nome, String cpf, String dataNascimento, List<ContatoDTO> contatos) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -33,7 +33,7 @@ public class PessoaDTO {
 		this.cpf = pessoa.getCpf();
 		this.dataNascimento = pessoa.getDataNascimento().format(formatter);
 		this.contatos = pessoa.getContatos().stream().map(contato -> new ContatoDTO(contato))
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -68,11 +68,11 @@ public class PessoaDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Set<ContatoDTO> getContatos() {
+	public List<ContatoDTO> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(Set<ContatoDTO> contatos) {
+	public void setContatos(List<ContatoDTO> contatos) {
 		this.contatos = contatos;
 	}
 

@@ -1,11 +1,15 @@
 package com.elotech.contato;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import com.elotech.cadastro.pessoa.Pessoa;
 import com.elotech.shared.BasicEntity;
 
 @Entity
@@ -24,6 +28,10 @@ public class Contato extends BasicEntity {
 	@Email(message = "email inválido!")
 	@Column(unique=true)
 	private String email;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="pessoa_id")
+	private Pessoa pessoa;
 
 	public String getNome() {
 		return nome;
@@ -48,7 +56,7 @@ public class Contato extends BasicEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public Contato atualizaDados(Contato contato) {
 
         this.setNome(contato.getNome());
@@ -57,42 +65,5 @@ public class Contato extends BasicEntity {
 
         return this;
     }
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contato other = (Contato) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
-			return false;
-		return true;
-	}
-
+	
 }

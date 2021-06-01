@@ -54,7 +54,7 @@ public class PessoaService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Pessoa update(Pessoa pessoa) {
-    	//problema ao atulizar os dados cujo contato já existe
+
     	Pessoa pessoaRecuperada = pessoaRepository.findById(pessoa.getId())
                 .map(p -> p.atualizaDados(pessoa))
                 .orElseThrow(() -> new RuntimeException("Não é possivel editar uma pessoa sem id!"));
